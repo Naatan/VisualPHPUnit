@@ -595,13 +595,13 @@ class VPU {
             $pu_output = $this->_replace($elem, '|||', $pu_output);
             $results .= $elem . ',';
         }
-
+        
         $results = '[' . rtrim($results, ',') . ']';
         $results = str_replace('\n', '', $results);
         $results = str_replace('&quot;', '"', $results);
 
         $results = json_decode($results, true);
-
+        
         // For PHPUnit 3.5.x, which doesn't include test output in the JSON
         $pu_output = explode('|||', $pu_output);
         foreach ( $pu_output as $key => $data ) {
@@ -728,8 +728,12 @@ class VPU {
             if ( $this->_classname_only($test) == 'PHPUnit_Framework_TestCase' ) {
                 continue;
             }
-            if ( stripos($this->_classname_only($test), 'test') !== false ) {
-                $suite->addTestSuite($test);
+
+            if (class_exists($this->_classname_only($test))) {
+                $theClass = new ReflectionClass($this->_classname_only($test));
+                if ( stripos($this->_classname_only($test), 'test') !== false AND $theClass->isSubclassOf('PHPUnit_Framework_TestCase')) {
+                    $suite->addTestSuite($test);
+                }
             }
         }
 

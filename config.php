@@ -47,7 +47,7 @@ set_include_path(get_include_path().PATH_SEPARATOR.
                  PEAR_PATH.PATH_SEPARATOR);
 
 // The directory where the tests reside
-define('TEST_DIRECTORY', BASE_INSTALL . '/tests/');
+define('TEST_DIRECTORY', BASE_INSTALL . '/../tests/');
 
 /*
  * Optional settings
@@ -77,7 +77,7 @@ define('STORE_STATISTICS', false);
 define('DATABASE_NAME', 'vpu');
 define('DATABASE_HOST', 'localhost');
 define('DATABASE_USER', 'root');
-define('DATABASE_PASS', 'admin');
+define('DATABASE_PASS', '');
 
 // Paths to any necessary bootstraps
 $bootstraps = array(
